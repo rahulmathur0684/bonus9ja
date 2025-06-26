@@ -52,9 +52,9 @@ export default withCors(async function handler(req: NextApiRequest, res: NextApi
                 }
                 footer.status = status;
                 await footer.save();
-                res.send(footer);
+             return   res.send(footer);
             } catch (err: any) {
-                res.status(500).send({ error: err.message });
+              return  res.status(500).send({ error: err.message });
             }
         }
         return res.status(405).json({ error: `Method '${req.method}' not allowed` });

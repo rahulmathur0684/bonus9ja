@@ -1,6 +1,6 @@
 // pages/api/auth/register.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import { User, validateUser } from '@/models/user'; // Adjust path based on your structure
 import { connectDb } from '@/lib/startup/connectDb';
 import { withCors } from '@/middleware/cors';
@@ -24,8 +24,8 @@ export default withCors(async function handler(req: NextApiRequest, res: NextApi
             
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const salt = await bcryptjs.genSalt(10);
+        const hashedPassword = await bcryptjs.hash(password, salt);
 
         const user = new User({ name, email, password: hashedPassword });
         await user.save();

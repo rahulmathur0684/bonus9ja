@@ -82,10 +82,10 @@ export default withCors(async function handler(req: NextApiRequest, res: NextApi
                 await Accordians.deleteMany({ _id: { $in: footer.accordians } });
                 await OtherText.deleteMany({ _id: { $in: footer.otherText } });
                 await footer.deleteOne();
-                res.send(footer);
+              return  res.send(footer);
             } catch (err: any) {
                 console.error(err);
-                res.status(500).send({ error: err.message });
+                return res.status(500).send({ error: err.message });
             }
         }
         // if (req.method == 'PUT') {
@@ -252,11 +252,11 @@ export default withCors(async function handler(req: NextApiRequest, res: NextApi
             { new: true, runValidators: true }
         );
 
-        res.json(updatedFooter);
+       return res.json(updatedFooter);
     } catch (err) {
         
         console.error('Error updating footer:', err);
-        res.status(500).json({ error: 'An error occurred while updating the footer', err });
+      return  res.status(500).json({ error: 'An error occurred while updating the footer', err });
     }
 }
         return res.status(405).json({ error: `Method '${req.method}' not allowed` });

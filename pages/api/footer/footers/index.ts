@@ -18,9 +18,9 @@ export default withCors(async function handler(req: NextApiRequest, res: NextApi
             try {
                 const footers = await Footer.find().populate('followUs').populate('pageLinks').populate('accordians').populate('otherText');
                 console.log(footers);
-                res.send(footers);
+               return res.send(footers);
             } catch (err: any) {
-                res.status(500).send({ error: err.message });
+               return res.status(500).send({ error: err.message });
             }
         }
         return res.status(405).json({ error: `Method '${req.method}' not allowed` });

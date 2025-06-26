@@ -1,7 +1,7 @@
  
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Joi from 'joi';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import { User } from '@/models/user';
 import { connectDb } from '@/lib/startup/connectDb';
 import { withCors } from '@/middleware/cors';
@@ -25,7 +25,7 @@ export default withCors(async function handler(req: NextApiRequest, res: NextApi
     const user = await User.findOne({ email });
     if (!user) return res.status(400).send('Invalid email or password.');
 
-    const validPassword = await bcrypt.compare(password, user.password);
+    const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword)
       return res.status(400).send('Invalid email or password.');
       
